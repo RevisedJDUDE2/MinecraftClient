@@ -13,4 +13,7 @@ Returns FindProcessByName(const char* Name, lpProcesss process) {
     process->processHandle = nullptr;
     return Returns::Invalid;
   }
+  do {
+
+  } while (Process32Next(procHandle, &proc));
 }
