@@ -4,7 +4,7 @@
 
 typedef struct tagProcess {
   std::string processName;
-  unsigned int processId;
+  DWORD processId;
   HANDLE processHandle;
 } Process, * lpProcesss;
 
@@ -12,7 +12,8 @@ enum class Returns {
   Invalid,
   Error_unexpected,
   process_quited,
-  unknown
+  unknown,
+  Success
 };
 
 Returns FindProcessByName(const char* Name, lpProcesss process);
