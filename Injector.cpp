@@ -16,4 +16,5 @@ Returns FindProcessByName(const char* Name, lpProcesss process) {
   do {
 
   } while (Process32Next(procHandle, &proc));
+  CloseHandle(procHandle);
 }
