@@ -11,5 +11,8 @@ int main() {
   HANDLE McHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, MinecraftProcess.processId);
   DLL_INFORMATION di;
   di.PATH = DLL_PATH;
+  AllocateDll(di);
+  InitializeInject(&MinecraftProcess, di);
+  Inject(&MinecraftProcess, di);
   return 0;
 }

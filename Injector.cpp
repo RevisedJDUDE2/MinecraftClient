@@ -32,3 +32,26 @@ ErrorCode AllocateDll(DLL_INFORMATION di) {
   di.SIZE_LEN = sizeof(di.PATH) + 1;
   return ErrorCode::Sucess;
 }
+
+void InitializeInject(lpProcesss proc, DLL_INFORMATION di) {
+  DWORD pid = proc->processId;
+  HANDLE procHandle = proc->processHandle;
+  HANDLE remoteThread;
+  LPVOID remoteBuffer;
+
+  HMODULE Kernel32DLL = GetModuleHandle("Kernel32");
+  VOID* loadlib = GetProcAddress(Kernel32DLL, "LoadLibraryA");
+
+  remoteBuffer = VirtualAllocEx(procHandle, NULL, di.SIZE_LEN, (MEM_RESERVE | MEM_COMMIT), PAGE_EXECUTE_READWRITE);
+  RemoteBufferCOPY = remoteBuffer;
+  RemoteThreadCOPY = remoteThread;
+  loadlibCOPY = &loadlib;
+}
+
+HANDLE RemoteThreadCOPY;
+LPVOID RemoteBufferCOPY;
+VOID* loadlibCOPY;
+void Inject(lpProcesss proc, DLL_INFORMATION di) {
+  WriteProcessMemory(proc->processHandle, RemoteBufferCOPY, di.PATH, di.SIZE_LEN, NULL);
+  RemoteThreadCOPY = CreateRemoteThread(proc->processHandle, NULL, 0, (LPTHREAD_START_ROUTINE)loadlibCOPY, RemoteBufferCOPY, 0, NULL);
+}

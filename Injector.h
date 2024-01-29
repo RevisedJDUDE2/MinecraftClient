@@ -24,3 +24,7 @@ struct DLL_INFORMATION {
 ErrorCode FindProcessByName(const char* Name, lpProcesss process);
 
 ErrorCode AllocateDll(DLL_INFORMATION di);
+
+void InitializeInject(lpProcesss proc, DLL_INFORMATION di);
+
+void Inject(lpProcesss proc, DLL_INFORMATION di);
