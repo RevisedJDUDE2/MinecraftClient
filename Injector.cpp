@@ -26,6 +26,7 @@ ErrorCode FindProcessByName(const char* Name, lpProcesss process) {
     //}
   } while (Process32Next(procHandle, &proc));
   CloseHandle(procHandle);
+  return ErrorCode::Null;
 }
 
 ErrorCode AllocateDll(DLL_INFORMATION di) {
