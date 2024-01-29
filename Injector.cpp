@@ -14,11 +14,16 @@ Returns FindProcessByName(const char* Name, lpProcesss process) {
     return Returns::Invalid;
   }
   do {
-    if (proc.szExeFile == Name) {
+    if (strcmp(proc.szExeFile, Name) == 0) {
       process->processHandle = procHandle;
       process->processId = proc.th32ProcessID;
       return Returns::Success;
     }
+    //if (proc.szExeFile == Name) {
+    //  process->processHandle = procHandle;
+    //  process->processId = proc.th32ProcessID;
+    //  return Returns::Success;
+    //}
   } while (Process32Next(procHandle, &proc));
   CloseHandle(procHandle);
 }
