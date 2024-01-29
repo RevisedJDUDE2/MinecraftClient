@@ -33,14 +33,14 @@ ErrorCode AllocateDll(DLL_INFORMATION di) {
   return ErrorCode::Sucess;
 }
 
-HANDLE RemoteThreadCOPY;
+HANDLE RemoteThreadCOPY{};
 LPVOID RemoteBufferCOPY;
 VOID* loadlibCOPY;
 
 void InitializeInject(lpProcesss proc, DLL_INFORMATION di) {
   DWORD pid = proc->processId;
   HANDLE procHandle = proc->processHandle;
-  HANDLE remoteThread;
+  HANDLE remoteThread{};
   LPVOID remoteBuffer;
 
   HMODULE Kernel32DLL = GetModuleHandle("Kernel32");
