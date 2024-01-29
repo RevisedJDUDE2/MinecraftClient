@@ -33,6 +33,10 @@ ErrorCode AllocateDll(DLL_INFORMATION di) {
   return ErrorCode::Sucess;
 }
 
+HANDLE RemoteThreadCOPY;
+LPVOID RemoteBufferCOPY;
+VOID* loadlibCOPY;
+
 void InitializeInject(lpProcesss proc, DLL_INFORMATION di) {
   DWORD pid = proc->processId;
   HANDLE procHandle = proc->processHandle;
@@ -48,9 +52,6 @@ void InitializeInject(lpProcesss proc, DLL_INFORMATION di) {
   loadlibCOPY = &loadlib;
 }
 
-HANDLE RemoteThreadCOPY;
-LPVOID RemoteBufferCOPY;
-VOID* loadlibCOPY;
 void Inject(lpProcesss proc, DLL_INFORMATION di) {
   WriteProcessMemory(proc->processHandle, RemoteBufferCOPY, di.PATH, di.SIZE_LEN, NULL);
   RemoteThreadCOPY = CreateRemoteThread(proc->processHandle, NULL, 0, (LPTHREAD_START_ROUTINE)loadlibCOPY, RemoteBufferCOPY, 0, NULL);
