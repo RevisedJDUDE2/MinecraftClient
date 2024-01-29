@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 #include "Injector.h"
 
-int main() {
+int main(int argc, char *argv) {
   char DLL_PATH[MAX_PATH] = "C:\\McClient.dll"; //this is an invalid dll
   Process MinecraftProcess;
   if (FindProcessByName("notepad.exe", &MinecraftProcess) == ErrorCode::Invalid_Handle ||
@@ -14,10 +14,10 @@ int main() {
   AllocateDll(di);
   InitializeInject(&MinecraftProcess, di);
   Inject(&MinecraftProcess, di);
-  //while (true) {
-  //  if (GetAsyncKeyState(VK_ESCAPE)) {
-  //    break;
-  //  }
-  //}
+  while (true) {
+    if (GetAsyncKeyState(VK_ESCAPE)) {
+      break;
+    }
+  }
   return 0;
 }
