@@ -1,23 +1,23 @@
 #include "Injector.h"
 
-Returns FindProcessByName(const char* Name, lpProcesss process) {
+ErrorCode::codes FindProcessByName(const char* Name, lpProcesss process) {
   PROCESSENTRY32 proc;
   HANDLE procHandle;
   procHandle = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
   if (procHandle == INVALID_HANDLE_VALUE) {
     process->processHandle = nullptr;
-    return Returns::Error_unexpected;
+    return ErrorCode::Invalid_Handle;
   };
   proc.dwSize = sizeof(PROCESSENTRY32);
   if (!Process32First(procHandle, &proc)) {
     process->processHandle = nullptr;
-    return Returns::Invalid;
+    return ErrorCode::Null;
   }
   do {
     if (strcmp(proc.szExeFile, Name) == 0) {
       process->processHandle = procHandle;
       process->processId = proc.th32ProcessID;
-      return Returns::Success;
+      return ErrorCode::Sucess;
     }
     //if (proc.szExeFile == Name) {
     //  process->processHandle = procHandle;

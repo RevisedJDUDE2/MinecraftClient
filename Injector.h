@@ -8,12 +8,13 @@ typedef struct tagProcess {
   HANDLE processHandle;
 } Process, * lpProcesss;
 
-enum class Returns {
-  Invalid,
-  Error_unexpected,
-  process_quited,
-  unknown,
-  Success
+struct ErrorCode {
+  enum codes {
+    Invalid_Handle,
+    Null,
+    Sucess,
+    ITERATOR
+  };
 };
 
-Returns FindProcessByName(const char* Name, lpProcesss process);
+ErrorCode::codes FindProcessByName(const char* Name, lpProcesss process);
