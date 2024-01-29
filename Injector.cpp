@@ -1,6 +1,6 @@
 #include "Injector.h"
 
-ErrorCode::codes FindProcessByName(const char* Name, lpProcesss process) {
+ErrorCode FindProcessByName(const char* Name, lpProcesss process) {
   PROCESSENTRY32 proc;
   HANDLE procHandle;
   procHandle = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
@@ -26,4 +26,9 @@ ErrorCode::codes FindProcessByName(const char* Name, lpProcesss process) {
     //}
   } while (Process32Next(procHandle, &proc));
   CloseHandle(procHandle);
+}
+
+ErrorCode AllocateDll(DLL_INFORMATION di) {
+  di.SIZE_LEN = sizeof(di.PATH) + 1;
+  return ErrorCode::Sucess;
 }

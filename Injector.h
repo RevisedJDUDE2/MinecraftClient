@@ -8,13 +8,19 @@ typedef struct tagProcess {
   HANDLE processHandle;
 } Process, * lpProcesss;
 
-struct ErrorCode {
-  enum codes {
-    Invalid_Handle,
-    Null,
-    Sucess,
-    ITERATOR
-  };
+enum class ErrorCode {
+  Invalid_Handle,
+  Null,
+  Sucess,
+  Allocation_Failed,
+  ITERATOR
 };
 
-ErrorCode::codes FindProcessByName(const char* Name, lpProcesss process);
+struct DLL_INFORMATION {
+  char *PATH;
+  unsigned int SIZE_LEN;
+};
+
+ErrorCode FindProcessByName(const char* Name, lpProcesss process);
+
+ErrorCode AllocateDll(DLL_INFORMATION di);
